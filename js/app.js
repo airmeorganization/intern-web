@@ -55,3 +55,25 @@ import { initSearchScreen } from './screens/search.js';
 document.addEventListener('DOMContentLoaded', initSearchScreen);
 import { initAIInterviewer } from './screens/ai-interviewer.js';
 document.addEventListener('DOMContentLoaded', initAIInterviewer);
+import { initAuthScreens, initCreateProfileScreen } from './screens/auth.js';
+
+// Global toast function
+window.showToast = function(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.className = `fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full text-white text-sm font-bold shadow-lg z-50 transition-opacity duration-300 ${isError ? 'bg-red-500' : 'bg-black'}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    initAuthScreens();
+    initCreateProfileScreen();
+});
+import { loadDashboard } from './screens/dashboard.js';
+import { loadApplications } from './screens/applications.js';
+import { initPostDetail } from './screens/post-detail.js';

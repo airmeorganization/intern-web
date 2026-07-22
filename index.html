@@ -121,16 +121,16 @@
     <form class="flex flex-col gap-5">
       <div>
         <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Email</label>
-        <input type="email" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="hello@example.com">
+        <input type="email" id="login-email" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="hello@example.com">
       </div>
       <div>
         <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Password</label>
-        <input type="password" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="••••••••">
+        <input type="password" id="login-password" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="••••••••">
       </div>
       <div class="flex justify-end">
         <a href="#" class="text-xs font-bold text-gray-600 hover:text-black">Forgot Password?</a>
       </div>
-      <button type="button" class="mt-4 w-full bg-black text-white rounded-xl py-3.5 text-sm font-bold shadow-md hover:bg-gray-800 transition-colors" onclick="navigateTo('home-screen')">Sign In</button>
+      <button type="button" id="login-btn" class="mt-4 w-full bg-black text-white rounded-xl py-3.5 text-sm font-bold shadow-md hover:bg-gray-800 transition-colors">Sign In</button>
     </form>
     <div class="mt-auto pb-12 flex justify-center items-center gap-1 text-sm font-medium">
       <span class="text-gray-500">Don't have an account?</span>
@@ -153,13 +153,13 @@
     <form class="flex flex-col gap-5">
       <div>
         <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Email Address</label>
-        <input type="email" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="hello@example.com">
+        <input type="email" id="signup-email" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="hello@example.com">
       </div>
       <div>
         <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Create Password</label>
-        <input type="password" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="••••••••">
+        <input type="password" id="signup-password" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="••••••••">
       </div>
-      <button type="button" class="mt-4 w-full bg-black text-white rounded-xl py-3.5 text-sm font-bold shadow-md hover:bg-gray-800 transition-colors" onclick="navigateTo('verify-account-screen')">Send Verification Code</button>
+      <button type="button" id="signup-btn" class="mt-4 w-full bg-black text-white rounded-xl py-3.5 text-sm font-bold shadow-md hover:bg-gray-800 transition-colors">Sign Up</button>
     </form>
     <div class="mt-auto pb-12 flex justify-center items-center gap-1 text-sm font-medium">
       <span class="text-gray-500">Already have an account?</span>
@@ -246,11 +246,11 @@
   <form class="flex flex-col gap-5">
     <div>
       <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Name</label>
-      <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="user">
+      <input type="text" id="profile-name-input" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="user">
     </div>
     <div>
       <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Username</label>
-      <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="@username">
+      <input type="text" id="profile-username-input" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="username">
     </div>
     <div>
       <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">I am a</label>
@@ -267,30 +267,26 @@
     </div>
     <div>
       <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Profession / Major</label>
-      <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="e.g. Software Engineer">
+      <input type="text" id="profile-profession-input" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="e.g. Software Engineer">
     </div>
     <div id="student-fields" class="flex flex-col gap-5">
       <div>
         <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">College Name</label>
-        <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="University Name">
+        <input type="text" id="profile-college-input" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="University Name">
       </div>
       <div>
         <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Resume</label>
-        <div class="w-full border-2 border-dashed border-gray-300 rounded-xl px-4 py-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors">
-          <svg class="w-6 h-6 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-          <span class="text-sm font-semibold text-gray-600">Upload PDF</span>
-          <span class="text-xs text-gray-400 mt-1">Max 5MB</span>
-        </div>
+        <label class="w-full border-2 border-dashed border-gray-300 rounded-xl px-4 py-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors"><input type="file" id="profile-resume-input" class="hidden" accept=".pdf,.doc,.docx"><svg class="w-6 h-6 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg><span id="profile-resume-text" class="text-sm font-semibold text-gray-600">Upload PDF</span><span class="text-xs text-gray-400 mt-1">Max 5MB</span></label>
       </div>
     </div>
     <div id="employer-fields" class="flex flex-col gap-5" style="display: none;">
       <div>
         <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Company Name</label>
-        <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="Company Inc.">
+        <input type="text" id="profile-company-input" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="Company Inc.">
       </div>
     </div>
     <!-- Pushes directly to suggestions-screen per request -->
-    <button type="button" class="mt-4 w-full bg-black text-white rounded-xl py-3.5 text-sm font-semibold shadow-md hover:bg-gray-800 transition-colors" onclick="navigateTo('suggestions-screen')">Continue</button>
+    <button type="button" id="create-profile-btn" class="mt-4 w-full bg-black text-white rounded-xl py-3.5 text-sm font-semibold shadow-md hover:bg-gray-800 transition-colors">Continue</button>
   </form>
 </div>
 </div>
@@ -547,7 +543,7 @@
     </div>
     <!-- Logout -->
     <div class="mt-auto pt-6 border-t border-gray-100">
-      <button class="w-full bg-gray-100 text-red-600 font-bold py-3.5 rounded-xl hover:bg-red-50 transition-colors" onclick="navigateTo('login-screen')">Log Out</button>
+      <button id="logout-btn" class="w-full bg-gray-100 text-red-600 font-bold py-3.5 rounded-xl hover:bg-red-50 transition-colors">Log Out</button>
     </div>
   </div>
 </div>
@@ -563,54 +559,13 @@
   </div>
   <div class="flex-1 overflow-y-auto px-6 py-6 no-scrollbar flex flex-col gap-6">
     <!-- Main Stat -->
-    <div class="bg-black text-white p-6 rounded-2xl shadow-lg">
-      <h3 class="text-sm font-semibold text-gray-300 mb-1">Profile Views</h3>
-      <div class="text-4xl font-bold mb-4 flex items-end gap-2">
-        124 <span class="text-sm font-medium text-green-400 mb-1">+12% this week</span>
-      </div>
-      <div class="flex items-end justify-between h-16 mt-6">
-        <div class="w-4 bg-white/20 rounded-t-md h-[40%]"></div>
-        <div class="w-4 bg-white/20 rounded-t-md h-[60%]"></div>
-        <div class="w-4 bg-white/20 rounded-t-md h-[30%]"></div>
-        <div class="w-4 bg-white/20 rounded-t-md h-[80%]"></div>
-        <div class="w-4 bg-white/20 rounded-t-md h-[50%]"></div>
-        <div class="w-4 bg-white rounded-t-md h-[100%] shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-      </div>
-    </div>
-    <!-- Secondary Stats -->
-    <div class="grid grid-cols-2 gap-4">
-      <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
-        <h3 class="text-xs font-semibold text-gray-500 mb-1">Search Appearances</h3>
-        <div class="text-2xl font-bold text-black">48</div>
-      </div>
-      <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
-        <h3 class="text-xs font-semibold text-gray-500 mb-1">Post Impressions</h3>
-        <div class="text-2xl font-bold text-black">3.2k</div>
-      </div>
-    </div>
+    <div id="dashboard-stats-container" class="flex flex-col gap-6"></div>
     <!-- Recent Activity -->
     <div>
       <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Recent Activity</h3>
       <div class="flex flex-col gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-          </div>
-          <div>
-            <p class="text-sm font-semibold text-black">Profile viewed by TechCorp</p>
-            <p class="text-[10px] text-gray-500">2 hours ago</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-          </div>
-          <div>
-            <p class="text-sm font-semibold text-black">Application sent to Studio X</p>
-            <p class="text-[10px] text-gray-500">1 day ago</p>
-          </div>
-        </div>
-      </div>
+      <div id="dashboard-activity-container" class="flex flex-col gap-4"></div>
+    </div>
     </div>
   </div>
 </div>
@@ -692,251 +647,46 @@
     <h2 class="text-lg font-bold text-black">Post</h2>
   </div>
   <div class="flex-1 overflow-y-auto no-scrollbar pb-24">
-    <div class="p-6 border-b border-gray-100 bg-white">
-      <div class="flex items-center gap-3 mb-4 cursor-pointer" onclick="navigateTo('other-user-profile-screen')">
-        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-          <span class="font-bold text-gray-500">AJ</span>
-        </div>
-        <div>
-          <h4 class="text-sm font-bold text-black flex items-center gap-1 hover:underline">Alice Johnson <svg class="w-3 h-3 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></h4>
-          <p class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">@alicej • 2h ago</p>
-        </div>
-      </div>
-      <p class="text-base text-gray-800 leading-relaxed mb-6 font-medium">Just finished an amazing 3-month internship at TechCorp! I learned so much about React and scaling frontend architecture. Highly recommend applying there if you're looking for mentorship.</p>
-      <div class="flex items-center gap-6 pb-2 border-b border-gray-100 mb-4">
-        <button class="flex items-center gap-1.5 text-black hover:text-gray-600 transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-          <span class="text-xs font-bold">128</span>
-        </button>
-        <button class="flex items-center gap-1.5 text-black transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-          <span class="text-xs font-bold">24 Comments</span>
-        </button>
-      </div>
-      
-      <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Comments</h3>
-      <div class="flex flex-col gap-4">
-        <div class="flex gap-3">
-          <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0 cursor-pointer" onclick="navigateTo('profile-screen')">
-            <span class="font-bold text-gray-500 text-xs">ur</span>
-          </div>
-          <div>
-            <div class="bg-gray-50 rounded-2xl p-3 border border-gray-100">
-              <h4 class="text-xs font-bold text-black mb-1 cursor-pointer hover:underline" onclick="navigateTo('profile-screen')">user</h4>
-              <p class="text-xs text-gray-800 font-medium">That's amazing! Did they have you working on internal tools or client-facing apps?</p>
-            </div>
-            <div class="flex items-center gap-4 mt-1 ml-2">
-              <button class="text-[10px] font-bold text-gray-500 hover:text-black">Like</button>
-              <button class="text-[10px] font-bold text-gray-500 hover:text-black">Reply</button>
-              <span class="text-[10px] text-gray-400 font-semibold">1h ago</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="post-content-container"></div>
+    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Comments</h3>
+    <div id="post-comments-container" class="flex flex-col gap-4"></div>
+  </div>
   </div>
   
   <div class="px-6 py-4 bg-white border-t border-gray-100 flex items-center gap-3 pb-8 absolute bottom-0 w-full z-10">
     <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shrink-0">
       <span class="font-bold text-gray-500 text-xs">ur</span>
     </div>
-    <input type="text" class="flex-1 bg-gray-100 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="Add a comment...">
-    <button class="text-black font-bold text-sm hover:text-gray-600 transition-colors shrink-0 px-2">Post</button>
+    <input type="text" id="post-comment-input" class="flex-1 bg-gray-100 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-black outline-none transition-colors" placeholder="Add a comment...">
+    <button id="post-comment-btn" class="text-black font-bold text-sm hover:text-gray-600 transition-colors shrink-0 px-2">Post</button>
   </div>
 </div>
 <!-- END: PostDetailScreen -->
-
-<!-- BEGIN: CreatePostScreen -->
-<div id="create-post-screen" class="app-screen" data-purpose="create-post-screen" style="display: none;">
-<div class="px-6 pt-6 pb-4 flex justify-between items-center border-b border-gray-100">
-  <button class="text-black font-semibold text-sm" onclick="navigateTo('home-screen')">Cancel</button>
-  <h2 class="text-lg font-bold text-black">New Post</h2>
-  <button class="bg-black text-white px-4 py-1.5 rounded-full text-sm font-bold hover:bg-gray-800 transition-colors" onclick="navigateTo('home-screen')">Post</button>
-</div>
-<div class="flex-1 px-6 py-4 flex flex-col">
-  <div class="flex items-center gap-2 mb-4">
-    <select class="text-xs font-bold text-black border border-gray-300 rounded-full px-3 py-1 bg-white focus:ring-black outline-none">
-      <option>All</option>
-      <option>Only Friends</option>
-    </select>
-  </div>
-  <div class="flex items-start gap-3 mb-4">
-    <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
-      <span class="font-bold text-gray-500 text-sm">ur</span>
-    </div>
-    <textarea class="flex-1 resize-none h-32 border-none focus:ring-0 text-sm pt-2 outline-none placeholder-gray-400 font-medium" placeholder="What do you want to talk about?"></textarea>
-  </div>
-  <div class="mt-auto border-t border-gray-100 py-4 flex gap-4 items-center">
-    <!-- Image -->
-    <button class="text-gray-500 hover:text-black"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></button>
-    <!-- Tag -->
-    <button class="text-gray-500 hover:text-black"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg></button>
-    <!-- Poll Icon -->
-    <button class="text-gray-500 hover:text-black"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></button>
-    <button class="ml-auto bg-gray-100 text-black text-xs font-bold px-3 py-1.5 rounded-full hover:bg-gray-200 transition-colors border border-gray-300" onclick="navigateTo('post-job-screen')">
-      Post Job
-    </button>
-  </div>
-</div>
-</div>
-<!-- END: CreatePostScreen -->
-
-<!-- BEGIN: ApplicationsScreen -->
-<div id="applications-screen" class="app-screen" data-purpose="applications-screen" style="display: none;">
-<div class="px-6 pt-6 pb-2 sticky top-0 bg-white/90 backdrop-blur-md z-10 flex flex-col relative">
-  <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-black hover:bg-gray-200 transition-colors mb-2" onclick="navigateTo('profile-screen')">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-  </button>
-  <h2 class="text-2xl font-bold text-black mb-4">Applications</h2>
-  <div class="flex gap-4 border-b border-gray-100">
-    <button class="text-sm font-bold text-black border-b-2 border-black pb-2 flex-1">View Jobs</button>
-    <button class="text-sm font-bold text-gray-400 hover:text-black transition-colors pb-2 flex-1">Applied Jobs</button>
-  </div>
-</div>
-<div class="flex-1 overflow-y-auto px-6 py-4 no-scrollbar flex flex-col gap-4">
-  <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-lg font-bold text-black">Frontend Developer</h3>
-      <span class="text-[10px] font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded border border-yellow-200">Under Review</span>
-    </div>
-    <p class="text-sm text-gray-600 font-medium mb-2">TechCorp Inc.</p>
-    <p class="text-xs text-gray-400 font-semibold">Applied 2 days ago</p>
-  </div>
-  <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-lg font-bold text-black">Software Engineer Intern</h3>
-      <span class="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded border border-green-200">Interview</span>
-    </div>
-    <p class="text-sm text-gray-600 font-medium mb-2">Global Systems</p>
-    <p class="text-xs text-gray-400 font-semibold">Applied 1 week ago</p>
-  </div>
-</div>
-</div>
-<!-- END: ApplicationsScreen -->
-
-<!-- BEGIN: PostJobScreen -->
-<div id="post-job-screen" class="app-screen" data-purpose="post-job-screen" style="display: none;">
-<div class="px-6 pt-6 pb-4 flex justify-between items-center border-b border-gray-100">
-  <button class="text-black font-semibold text-sm" onclick="navigateTo('create-post-screen')">Cancel</button>
-  <h2 class="text-lg font-bold text-black">Post Job</h2>
-  <button id="publish-job-btn" type="button" class="bg-black text-white px-4 py-1.5 rounded-full text-sm font-bold hover:bg-gray-800 transition-colors">Publish</button>
-</div>
-<div class="flex-1 overflow-y-auto no-scrollbar px-6 py-4 pb-24">
-  <form class="flex flex-col gap-5">
-    <div>
-      <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Job Title</label>
-      <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors" id="job-title" placeholder="e.g. Frontend Developer Intern">
-    </div>
-    <div>
-      <label class="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Job Details (Description)</label>
-      <textarea class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm h-24 focus:border-black focus:ring-1 focus:ring-black outline-none transition-colors resize-none" id="job-description" placeholder="Describe the role..."></textarea>
-    </div>
-    <div>
-      <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Keywords (Select multiple)</label>
-      <div class="flex flex-wrap gap-2 h-48 overflow-y-auto no-scrollbar border border-gray-200 rounded-xl p-3 bg-gray-50">
-          <div id="skills-container" class="flex flex-wrap gap-2"></div>
-        </div>
-    </div>
-    <div class="flex flex-col gap-4 mt-2">
-      <div class="flex items-center justify-between">
-        <div>
-          <h4 class="text-sm font-bold text-black">Quick Apply</h4>
-          <p class="text-[10px] text-gray-500 font-medium">Allow users to apply with one click</p>
-        </div>
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" id="quick-apply-toggle" class="sr-only peer" checked>
-          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black"></div>
-        </label>
-      </div>
-      <div class="flex items-center justify-between">
-        <div>
-          <h4 class="text-sm font-bold text-black flex items-center gap-1">AI Interviewer <span class="bg-black text-white text-[8px] px-1.5 py-0.5 rounded-full uppercase tracking-wider">Pro</span></h4>
-          <p class="text-[10px] text-gray-500 font-medium">Auto-screen candidates with Voice AI</p>
-        </div>
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" id="ai-interview-toggle" class="sr-only peer">
-          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black"></div>
-        </label>
-      </div>
-    </div>
-  </form>
-</div>
-</div>
-<!-- END: PostJobScreen -->
-
-<!-- BEGIN: AIInterviewerScreen (Cleaned & Minimalist) -->
-<div id="ai-interviewer-screen" class="app-screen bg-black" data-purpose="ai-interviewer-screen" style="display: none;">
-<div class="flex-1 flex flex-col items-center justify-center p-6 relative">
-  <button class="absolute top-6 right-6 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" onclick="navigateTo('applications-screen')">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-  </button>
-  
-  <div class="flex items-center gap-1.5 h-48 mb-16 mt-12">
-    <div class="w-3 h-8 bg-white rounded-full voice-wave"></div>
-    <div class="w-3 h-20 bg-white rounded-full voice-wave"></div>
-    <div class="w-3 h-32 bg-white rounded-full voice-wave"></div>
-    <div class="w-3 h-48 bg-white rounded-full voice-wave"></div>
-    <div class="w-3 h-24 bg-white rounded-full voice-wave"></div>
-    <div class="w-3 h-16 bg-white rounded-full voice-wave"></div>
-    <div class="w-3 h-8 bg-white rounded-full voice-wave"></div>
-  </div>
-  
-  <div class="flex items-center justify-center gap-8 mt-auto mb-12 w-full">
-    <button class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
-    </button>
-    <button class="w-24 h-24 bg-white rounded-full flex items-center justify-center text-black shadow-xl hover:scale-105 transition-transform">
-      <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"></path></svg>
-    </button>
-    <button class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
-    </button>
-  </div>
-</div>
-</div>
-<!-- END: AIInterviewerScreen -->
-
-</div>
-</body></html>
-
-<!-- BEGIN: AIChatDetailScreen -->
-<div id="ai-chat-detail-screen" class="app-screen" data-purpose="ai-chat-detail-screen" style="display: none;">
+<!-- BEGIN: ChatDetailScreen (Normal) -->
+<div id="chat-detail-screen" class="app-screen" data-purpose="chat-detail-screen" style="display: none;">
   <div class="px-6 pt-6 pb-4 flex items-center justify-between border-b border-gray-100 bg-white/90 backdrop-blur-md sticky top-0 z-10">
     <div class="flex items-center gap-3">
       <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-black hover:bg-gray-200 transition-colors" onclick="navigateTo('chat-screen')">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
       </button>
       <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-sm">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
-        </div>
         <div>
-          <h2 class="text-sm font-bold text-black flex items-center gap-1">intern. AI <span class="bg-black text-white text-[8px] px-1.5 py-0.5 rounded-full uppercase tracking-wider">Beta</span></h2>
-          <p class="text-[10px] text-green-500 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Online</p>
+          <h2 class="text-sm font-bold text-black flex items-center gap-1" id="chat-detail-name">User</h2>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="ai-chat-messages" class="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-4 no-scrollbar">
-    <!-- Initial Greeting -->
-    <div class="flex items-end gap-2 max-w-[85%]">
-      <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex-shrink-0 flex items-center justify-center text-white">
-        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
-      </div>
-      <div class="bg-gray-100 rounded-2xl rounded-bl-none px-4 py-2.5 text-sm text-gray-800 font-medium">
-        Hey! I'm intern. AI. I can help you prep for interviews, review your resume, or suggest career paths based on your skills. What's on your mind?
-      </div>
-    </div>
+  <div id="chat-detail-messages" class="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-4 no-scrollbar">
   </div>
 
   <div class="px-6 py-4 bg-white border-t border-gray-100">
     <div class="flex items-center gap-2 bg-gray-100 rounded-full pl-4 pr-1.5 py-1.5">
-      <input type="text" id="ai-chat-input" class="flex-1 bg-transparent border-none text-sm focus:ring-0 p-0 placeholder-gray-400 font-medium" placeholder="Ask for career advice...">
-      <button id="ai-chat-send" class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-800 transition-colors flex-shrink-0">
+      <input type="text" id="chat-detail-input" class="flex-1 bg-transparent border-none text-sm focus:ring-0 p-0 placeholder-gray-400 font-medium" placeholder="Message...">
+      <button id="chat-detail-send" class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-800 transition-colors flex-shrink-0">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
       </button>
     </div>
   </div>
 </div>
-<!-- END: AIChatDetailScreen -->
+<!-- END: ChatDetailScreen -->
