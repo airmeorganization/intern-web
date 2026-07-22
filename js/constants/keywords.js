@@ -1,0 +1,21 @@
+export const RECRUITABLE_KEYWORDS = [
+  "React", "React Native", "Next.js", "Vue.js", "Angular", "Svelte", "JavaScript", "TypeScript",
+  "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Node.js", "Express.js", "Python", "Django",
+  "Flask", "FastAPI", "Java", "Spring Boot", "C++", "C#", ".NET", "Go", "Rust", "PHP", "Laravel",
+  "Ruby", "Ruby on Rails", "Swift", "Kotlin", "Flutter", "GraphQL", "REST API", "gRPC", "WebSockets",
+  "AWS", "Azure", "Google Cloud (GCP)", "Docker", "Kubernetes", "Terraform", "CI/CD", "GitHub Actions",
+  "Linux", "Bash", "Nginx", "Serverless", "Microservices", "System Architecture",
+  "SQL", "PostgreSQL", "MySQL", "MongoDB", "Redis", "Supabase", "Firebase", "Elasticsearch",
+  "Machine Learning", "Deep Learning", "Artificial Intelligence", "PyTorch", "TensorFlow",
+  "Pandas", "NumPy", "Scikit-Learn", "Data Analytics", "Data Engineering", "NLP", "LLMs", "Prompt Engineering",
+  "Figma", "UI Design", "UX Design", "Wireframing", "Prototyping", "User Research", "Interaction Design",
+  "Design Systems", "Adobe XD", "Illustrator", "Photoshop", "After Effects", "Blender", "3D Modeling",
+  "Product Management", "Agile", "Scrum", "Kanban", "Jira", "Trello", "Asana", "Product Strategy",
+  "User Stories", "Roadmapping", "A/B Testing", "Abridge Analytics",
+  "Digital Marketing", "SEO", "SEM", "Content Strategy", "Copywriting", "Social Media Marketing",
+  "Growth Hacking", "Email Marketing", "Sales", "B2B Sales", "Lead Generation", "CRM", "HubSpot",
+  "Financial Modeling", "Accounting", "Business Analysis", "Market Research",
+  "Human Resources", "Talent Acquisition", "Technical Recruiting", "Operations", "Customer Success",
+  "Technical Writing", "Quality Assurance (QA)", "Selenium", "Cypress", "Jest", "Cybersecurity",
+  "Ethical Hacking", "Penetration Testing", "Blockchain", "Web3", "Solidity", "Smart Contracts"
+];
