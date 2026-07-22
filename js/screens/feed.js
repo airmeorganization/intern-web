@@ -1,5 +1,16 @@
 import { supabase } from '../supabase.js';
 
+
+function escapeHtml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
 export async function loadFeed() {
   const container = document.getElementById('posts-container');
   if (!container) return;
@@ -30,11 +41,11 @@ export async function loadFeed() {
         <div class="flex items-center gap-3 mb-3">
           <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center overflow-hidden text-white font-bold text-sm">${initials}</div>
           <div>
-            <h4 class="text-sm font-bold text-black flex items-center gap-1" onclick="event.stopPropagation(); navigateTo('other-user-profile-screen')">${author.name || 'Unknown'}</h4>
-            <p class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">@${author.username || 'unknown'} • ${timeAgo}</p>
+            <h4 class="text-sm font-bold text-black flex items-center gap-1" onclick="event.stopPropagation(); navigateTo('other-user-profile-screen')">${escapeHtml(author.name || 'Unknown')}</h4>
+            <p class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">@${escapeHtml(author.username || 'unknown')} • ${timeAgo}</p>
           </div>
         </div>
-        <p class="text-sm text-gray-800 leading-relaxed mb-4 font-medium">${post.content}</p>
+        <p class="text-sm text-gray-800 leading-relaxed mb-4 font-medium">${escapeHtml(post.content)}</p>
         <div class="flex items-center gap-6">
           <button class="flex items-center gap-1.5 text-gray-500 hover:text-black transition-colors" onclick="event.stopPropagation();">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>

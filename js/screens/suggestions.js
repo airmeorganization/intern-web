@@ -1,5 +1,16 @@
 import { supabase } from '../supabase.js';
 
+
+function escapeHtml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
 export async function loadSuggestions() {
   const container = document.getElementById('suggestions-container');
   if (!container) return;
@@ -69,8 +80,8 @@ export async function loadSuggestions() {
             <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded">${timeAgo}</span>
           </div>
         </div>
-        <h3 class="text-lg font-bold text-black mb-1">${job.title}</h3>
-        <p class="text-sm text-gray-600 font-medium mb-4">${employer.college_company || 'Unknown Company'}</p>
+        <h3 class="text-lg font-bold text-black mb-1">${escapeHtml(job.title)}</h3>
+        <p class="text-sm text-gray-600 font-medium mb-4">${escapeHtml(employer.college_company || 'Unknown Company')}</p>
         <div class="flex flex-wrap gap-2 mb-5">
           ${keywordChips}
         </div>
