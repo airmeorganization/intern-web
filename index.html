@@ -6,160 +6,585 @@
   <title>intern. App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: sans-serif; }
-    .app-screen { display: none; flex-direction: column; height: 100vh; background: white; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111111; }
+    .app-screen { display: none; flex-direction: column; height: 100vh; background: #FFFFFF; }
     .active-screen { display: flex; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Design System Utilities */
+    .title-text { font-weight: 800; font-size: 34px; letter-spacing: -0.05em; }
+    .heading-text { font-weight: 700; font-size: 24px; }
+    .card-title { font-weight: 600; font-size: 18px; }
+    .body-text { font-weight: 400; font-size: 16px; }
+    .small-text { font-weight: 400; font-size: 14px; }
+    .caption-text { font-weight: 500; font-size: 12px; }
+
+    .btn-primary { background: #111111; color: #FFFFFF; border-radius: 16px; height: 56px; font-weight: 600; font-size: 16px; width: 100%; transition: transform 0.2s ease, opacity 0.2s ease; }
+    .btn-primary:active { transform: scale(0.98); opacity: 0.9; }
+    .btn-secondary { background: #FFFFFF; color: #111111; border: 1px solid #111111; border-radius: 16px; height: 56px; font-weight: 600; font-size: 16px; width: 100%; transition: transform 0.2s ease; }
+    .btn-secondary:active { transform: scale(0.98); }
+
+    .input-field { width: 100%; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 16px; font-size: 16px; transition: border-color 0.2s ease; }
+    .input-field::placeholder { color: #6B7280; }
+    .input-field:focus { border-color: #111111; outline: none; }
+
+    .card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); padding: 20px; }
+    .floating-nav { background: #FFFFFF; border-radius: 24px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); }
+
+    /* Layout Spacing */
+    .screen-padding { padding: 24px; }
+
+    @keyframes typing {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes wave {
+      0%, 100% { height: 10px; }
+      50% { height: 30px; }
+    }
+    .wave-bar { animation: wave 1.2s infinite ease-in-out; width: 4px; border-radius: 2px; background: #111111; }
+    .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+    .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+    .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+    .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 </head>
-<body class="bg-gray-100 flex items-center justify-center">
+<body class="flex items-center justify-center min-h-[100dvh]">
 
-<div id="app-container" class="w-full h-[100dvh] sm:max-w-md mx-auto relative bg-white overflow-hidden sm:shadow-2xl sm:rounded-[40px] sm:border-8 sm:border-gray-900">
+<div id="app-container" class="w-full h-[100dvh] sm:max-w-md mx-auto relative overflow-hidden sm:shadow-[0_20px_60px_rgba(0,0,0,0.1)] sm:rounded-[40px] bg-white">
 
-  <!-- Splash Screen -->
-  <div id="splash-screen" class="app-screen active-screen items-center justify-center bg-black text-white">
-    <h1 class="text-4xl font-bold">intern.</h1>
-  </div>
-
-  <!-- Login Main -->
-  <div id="login-screen" class="app-screen p-6 justify-center">
-    <h2 class="text-2xl font-bold mb-8 text-center">Welcome to intern.</h2>
-    <button onclick="navigateTo('email-login-screen')" class="w-full bg-black text-white rounded-xl py-3.5 mb-4">Continue with Email</button>
-    <button onclick="navigateTo('aorg-login-screen')" class="w-full bg-gray-200 text-black rounded-xl py-3.5 mb-4">Magic Link (aorg.in)</button>
-    <button onclick="alert('Google Auth pending...')" class="w-full border border-gray-300 text-black rounded-xl py-3.5">Continue with Google</button>
-  </div>
-
-  <!-- Email Login -->
-  <div id="email-login-screen" class="app-screen p-6 pt-12">
-    <button onclick="navigateTo('login-screen')" class="mb-6">← Back</button>
-    <h2 class="text-2xl font-bold mb-6">Sign In</h2>
-    <input type="email" id="login-email" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Email">
-    <input type="password" id="login-password" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Password">
-    <button id="login-btn" class="w-full bg-black text-white rounded-xl py-3.5 mb-4">Sign In</button>
+  <!-- Screen 1: Splash Screen -->
+  <div id="splash-screen" class="app-screen active-screen items-center justify-center">
     <div class="text-center">
-      <span class="text-gray-500">Don't have an account?</span>
-      <button onclick="navigateTo('create-account-screen')" class="font-bold underline">Sign up</button>
+      <h1 class="title-text mb-2">intern.</h1>
+      <p class="small-text text-[#6B7280]">your way of connecting</p>
     </div>
   </div>
 
-  <!-- Create Account -->
-  <div id="create-account-screen" class="app-screen p-6 pt-12">
-    <button onclick="navigateTo('email-login-screen')" class="mb-6">← Back</button>
-    <h2 class="text-2xl font-bold mb-6">Sign Up</h2>
-    <input type="email" id="signup-email" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Email">
-    <input type="password" id="signup-password" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Password">
-    <button id="signup-btn" class="w-full bg-black text-white rounded-xl py-3.5">Sign Up</button>
+  <!-- Screen 2: Login -->
+  <div id="login-screen" class="app-screen screen-padding pt-16">
+    <div class="text-center mb-16">
+      <h1 class="title-text mb-8">intern.</h1>
+      <h2 class="heading-text mb-2">Welcome back</h2>
+      <p class="small-text text-[#6B7280]">Log in to your account to continue</p>
+    </div>
+
+    <div class="flex flex-col gap-4 mt-auto mb-8">
+      <button onclick="alert('Google Auth pending...')" class="btn-secondary flex items-center justify-center gap-3">
+        <svg class="w-6 h-6" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path d="M1 1h22v22H1z" fill="none"/></svg>
+        Continue with Google
+      </button>
+      <button onclick="navigateTo('aorg-login-screen')" class="btn-secondary flex items-center justify-center gap-3">
+        <span class="material-symbols-rounded">corporate_fare</span>
+        Continue with aorg.in
+      </button>
+      <button onclick="navigateTo('email-login-screen')" class="btn-primary flex items-center justify-center gap-3">
+        <span class="material-symbols-rounded">mail</span>
+        Continue with Email
+      </button>
+    </div>
+
+    <div class="text-center mt-auto mb-4">
+      <p class="caption-text text-[#6B7280]">By continuing, you agree to our <a href="#" class="text-[#111111] underline">Terms</a> and <a href="#" class="text-[#111111] underline">Privacy</a></p>
+    </div>
   </div>
 
-  <!-- Magic Link Login -->
-  <div id="aorg-login-screen" class="app-screen p-6 pt-12">
-    <button onclick="navigateTo('login-screen')" class="mb-6">← Back</button>
-    <h2 class="text-2xl font-bold mb-6">Magic Link Login</h2>
-    <input type="email" id="magic-email" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Email (e.g. name@aorg.in)">
-    <button id="magic-btn" class="w-full bg-black text-white rounded-xl py-3.5">Send OTP</button>
+  <!-- Screen 3: Email Login -->
+  <div id="email-login-screen" class="app-screen screen-padding pt-12">
+    <button onclick="navigateTo('login-screen')" class="mb-8 w-fit"><span class="material-symbols-rounded">arrow_back</span></button>
+    <h2 class="heading-text text-center mb-10">Sign In</h2>
+
+    <div class="flex flex-col gap-4 mb-4">
+      <input type="email" id="login-email" class="input-field" placeholder="Email">
+      <div class="relative">
+        <input type="password" id="login-password" class="input-field pr-12" placeholder="Password">
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-[#6B7280]"><span class="material-symbols-rounded text-[20px]">visibility</span></button>
+      </div>
+    </div>
+    <div class="text-right mb-8">
+      <button class="small-text text-[#6B7280]">Forgot Password?</button>
+    </div>
+
+    <button id="login-btn" class="btn-primary mb-8">Sign In</button>
+
+    <div class="text-center small-text text-[#6B7280]">
+      Don't have an account? <button onclick="navigateTo('create-account-screen')" class="text-[#111111] font-semibold">Create one</button>
+    </div>
   </div>
 
-  <!-- OTP Screen -->
-  <div id="aorg-otp-screen" class="app-screen p-6 pt-12">
-    <button onclick="navigateTo('aorg-login-screen')" class="mb-6">← Back</button>
-    <h2 class="text-2xl font-bold mb-6">Enter OTP</h2>
-    <input type="text" id="otp-input" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="123456">
-    <button id="verify-otp-btn" class="w-full bg-black text-white rounded-xl py-3.5">Verify</button>
+  <!-- Screen 4: Create Account -->
+  <div id="create-account-screen" class="app-screen screen-padding pt-12">
+    <button onclick="navigateTo('email-login-screen')" class="mb-8 w-fit"><span class="material-symbols-rounded">arrow_back</span></button>
+    <h2 class="heading-text text-center mb-10">Sign Up</h2>
+
+    <div class="flex flex-col gap-4 mb-8">
+      <input type="email" id="signup-email" class="input-field" placeholder="Email">
+      <input type="password" id="signup-password" class="input-field" placeholder="Password">
+      <input type="password" id="signup-password-confirm" class="input-field" placeholder="Confirm Password">
+    </div>
+
+    <button id="signup-btn" class="btn-primary mb-8">Create Account</button>
+
+    <div class="text-center small-text text-[#6B7280] mt-auto mb-4">
+      Already have an account? <button onclick="navigateTo('email-login-screen')" class="text-[#111111] font-semibold">Sign In</button>
+    </div>
   </div>
 
-  <!-- Create Profile -->
-  <div id="create-profile-screen" class="app-screen p-6 pt-12 overflow-y-auto">
-    <h2 class="text-2xl font-bold mb-6">Create Profile</h2>
-    <input type="text" id="profile-name" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Full Name">
-    <input type="text" id="profile-username" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Username (unique)">
-    <p id="username-error" class="text-red-500 text-sm hidden mb-4">Username taken</p>
-    <input type="text" id="profile-profession" class="w-full border rounded-xl px-4 py-3 mb-4" placeholder="Profession / Major">
+  <!-- Screen 6: aorg Login -->
+  <div id="aorg-login-screen" class="app-screen screen-padding pt-12">
+    <button onclick="navigateTo('login-screen')" class="mb-8 w-fit"><span class="material-symbols-rounded">arrow_back</span></button>
+    <h2 class="heading-text text-center mb-10">Sign in with aorg.in</h2>
 
-    <label class="block mb-2 font-bold">Upload Resume (PDF/DOCX)</label>
-    <input type="file" id="resume-upload" accept=".pdf,.docx" class="mb-6 block w-full text-sm">
+    <input type="email" id="magic-email" class="input-field mb-8" placeholder="Organization Email (e.g. name@aorg.in)">
 
-    <button id="save-profile-btn" class="w-full bg-black text-white rounded-xl py-3.5">Save Profile</button>
+    <button id="magic-btn" class="btn-primary">Send OTP</button>
   </div>
 
-  <!-- Main App - Home / Feed -->
-  <div id="home-screen" class="app-screen">
-    <div class="p-4 border-b flex justify-between items-center">
-      <h2 class="font-bold text-xl">intern.</h2>
-      <div class="flex gap-4">
-        <button onclick="navigateTo('search-screen')">🔍</button>
-        <button onclick="navigateTo('chat-list-screen')">💬</button>
-        <button onclick="navigateTo('profile-screen')">👤</button>
+  <!-- Screen 7: OTP Verification -->
+  <div id="aorg-otp-screen" class="app-screen screen-padding pt-12">
+    <button onclick="navigateTo('aorg-login-screen')" class="mb-8 w-fit"><span class="material-symbols-rounded">arrow_back</span></button>
+
+    <div class="flex justify-center mb-8">
+      <div class="w-24 h-24 rounded-full bg-[#FAFAFA] flex items-center justify-center">
+        <span class="material-symbols-rounded text-[48px]">shield_check</span>
       </div>
     </div>
 
-    <div class="p-4 border-b bg-gray-50">
-      <textarea id="new-post-content" class="w-full bg-transparent resize-none outline-none" placeholder="What's on your mind?"></textarea>
-      <div class="flex justify-between items-center mt-2">
-        <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="new-post-isjob"> Job Post</label>
-        <button id="publish-btn" class="bg-black text-white px-4 py-1.5 rounded-full text-sm font-bold">Post</button>
+    <h2 class="heading-text text-center mb-2">Verify your email</h2>
+    <p class="small-text text-[#6B7280] text-center mb-8">Enter the 6-digit code sent to your email.</p>
+
+    <input type="text" id="otp-input" class="input-field text-center tracking-widest text-xl mb-8" placeholder="------" maxlength="6">
+
+    <button id="verify-otp-btn" class="btn-primary mb-6">Verify</button>
+
+    <div class="text-center">
+      <button class="small-text text-[#6B7280] font-medium">Resend Code</button>
+    </div>
+  </div>
+
+  <!-- Screen 8: Create Profile -->
+  <div id="create-profile-screen" class="app-screen screen-padding pt-12 overflow-y-auto no-scrollbar pb-24">
+    <h2 class="heading-text text-center mb-8">Create Profile</h2>
+
+    <div class="flex flex-col items-center mb-8">
+      <div class="w-24 h-24 rounded-full bg-[#FAFAFA] border border-[#E5E7EB] flex items-center justify-center mb-4">
+        <span class="material-symbols-rounded text-[32px] text-[#6B7280]">person</span>
+      </div>
+      <button class="small-text font-medium">Upload Photo</button>
+    </div>
+
+    <div class="flex flex-col gap-4 mb-6">
+      <input type="text" id="profile-name" class="input-field" placeholder="Full Name">
+      <div class="relative">
+        <input type="text" id="profile-username" class="input-field" placeholder="Username">
+        <p id="username-error" class="text-[#EF4444] text-[12px] mt-1 ml-2 hidden">Username taken</p>
       </div>
     </div>
 
-    <div id="feed-container" class="flex-1 overflow-y-auto pb-20"></div>
+    <div class="flex bg-[#FAFAFA] rounded-[16px] p-1 mb-6">
+      <button id="role-student-btn" class="flex-1 py-3 text-center rounded-[12px] bg-[#111111] text-[#FFFFFF] font-semibold text-[14px] transition-colors" onclick="setRole('student')">Student</button>
+      <button id="role-employer-btn" class="flex-1 py-3 text-center rounded-[12px] text-[#6B7280] font-semibold text-[14px] transition-colors" onclick="setRole('employer')">Employer</button>
+      <input type="hidden" id="profile-role" value="student">
+    </div>
+
+    <div id="student-fields" class="flex flex-col gap-4 mb-8">
+      <input type="text" id="profile-profession" class="input-field" placeholder="Major">
+      <input type="text" id="profile-college" class="input-field" placeholder="College / University">
+      <div class="border border-[#E5E7EB] rounded-[16px] p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-[#FAFAFA] transition-colors" onclick="document.getElementById('resume-upload').click()">
+        <span class="material-symbols-rounded text-[#6B7280]">upload_file</span>
+        <span class="small-text text-[#6B7280]" id="resume-filename">Upload Resume (PDF/DOCX)</span>
+        <input type="file" id="resume-upload" accept=".pdf,.docx" class="hidden">
+      </div>
+    </div>
+
+    <div id="employer-fields" class="hidden flex-col gap-4 mb-8">
+      <input type="text" id="profile-role-title" class="input-field" placeholder="Role">
+      <input type="text" id="profile-company" class="input-field" placeholder="Company Name">
+    </div>
+
+    <button id="save-profile-btn" class="btn-primary mt-auto">Continue</button>
+  </div>
+
+  <!-- Screen 11: Home Feed -->
+  <div id="home-screen" class="app-screen relative">
+    <!-- Top Nav -->
+    <div class="px-6 py-4 flex justify-between items-center bg-white z-10">
+      <h2 class="title-text text-[24px]">intern.</h2>
+      <div class="flex gap-4 text-[#111111]">
+        <button onclick="navigateTo('search-screen')"><span class="material-symbols-rounded">search</span></button>
+        <button onclick="navigateTo('chat-list-screen')"><span class="material-symbols-rounded">chat_bubble</span></button>
+      </div>
+    </div>
+
+    <!-- Feed -->
+    <div id="feed-container" class="flex-1 overflow-y-auto no-scrollbar px-6 pb-24 bg-[#FAFAFA] pt-4 flex flex-col gap-5">
+      <!-- Posts will be injected here -->
+      <div class="text-center p-4 text-[#6B7280]">Loading...</div>
+    </div>
+
+    <!-- FAB (Floating Action Button) for new post -->
+    <button onclick="navigateTo('create-post-screen')" class="absolute bottom-28 right-6 w-14 h-14 bg-[#111111] text-white rounded-full flex items-center justify-center shadow-lg z-20">
+      <span class="material-symbols-rounded">add</span>
+    </button>
+
+    <!-- Bottom Nav -->
+    <div class="absolute bottom-6 left-6 right-6 h-16 floating-nav flex justify-around items-center px-2 z-20">
+      <button onclick="navigateTo('home-screen')" class="text-[#111111]"><span class="material-symbols-rounded text-[26px]">home</span></button>
+      <button onclick="navigateTo('suggestions-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">work</span></button>
+      <button onclick="navigateTo('dashboard-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">grid_view</span></button>
+      <button onclick="navigateTo('profile-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">person</span></button>
+    </div>
   </div>
   
-  <!-- Search Screen -->
-  <div id="search-screen" class="app-screen">
-    <div class="p-4 border-b flex items-center gap-4">
-      <button onclick="navigateTo('home-screen')">←</button>
-      <input type="text" class="w-full bg-gray-100 rounded-full px-4 py-2 outline-none" placeholder="Search...">
+  <!-- Screen 9: Suggestions -->
+  <div id="suggestions-screen" class="app-screen relative">
+    <div class="px-6 py-4 flex justify-between items-center bg-white z-10">
+      <h2 class="heading-text">Suggested Internships</h2>
+      <button onclick="navigateTo('search-screen')"><span class="material-symbols-rounded">search</span></button>
     </div>
-    <div class="p-4">Search functionality coming soon...</div>
-  </div>
 
-  <!-- Chat List -->
-  <div id="chat-list-screen" class="app-screen">
-    <div class="p-4 border-b flex items-center gap-4">
-      <button onclick="navigateTo('home-screen')">←</button>
-      <h2 class="font-bold text-lg">Messages</h2>
-    </div>
-    <div id="chat-list-container" class="flex-1 overflow-y-auto"></div>
-  </div>
-
-  <!-- Chat Detail -->
-  <div id="chat-detail-screen" class="app-screen">
-    <div class="p-4 border-b flex items-center gap-4">
-      <button onclick="navigateTo('chat-list-screen')">←</button>
-      <h2 id="chat-detail-name" class="font-bold text-lg">User</h2>
-    </div>
-    <div id="chat-messages-container" class="flex-1 overflow-y-auto p-4 flex flex-col"></div>
-    <div class="p-4 border-t flex gap-2">
-      <input type="text" id="chat-input" class="flex-1 border rounded-full px-4 outline-none" placeholder="Message...">
-      <button id="chat-send-btn" class="bg-black text-white rounded-full px-4 py-2 font-bold">Send</button>
-    </div>
-  </div>
-
-  <!-- AI Chat -->
-  <div id="ai-chat-screen" class="app-screen">
-    <div class="p-4 border-b flex items-center gap-4">
-      <button onclick="navigateTo('chat-list-screen')">←</button>
-      <h2 class="font-bold text-lg">intern. AI</h2>
-    </div>
-    <div id="ai-messages-container" class="flex-1 overflow-y-auto p-4 flex flex-col">
-      <div class="bg-blue-100 text-black max-w-[70%] px-4 py-2 rounded-2xl rounded-bl-none self-start mb-2">
-        Hi! I'm intern AI. How can I help with your career?
+    <div id="suggestions-container" class="flex-1 overflow-y-auto no-scrollbar px-6 pb-24 bg-[#FAFAFA] pt-4 flex flex-col gap-5">
+      <!-- Dummy card for visual reference, will be replaced -->
+      <div class="card p-5">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-[12px] bg-[#E5E7EB] flex-shrink-0"></div>
+          <div>
+            <h3 class="card-title">Product Design Intern</h3>
+            <p class="body-text text-[#6B7280]">Stripe</p>
+            <div class="flex gap-2 mt-1">
+              <span class="caption-text text-[#6B7280]">Remote</span>
+              <span class="caption-text text-[#6B7280]">•</span>
+              <span class="caption-text text-[#6B7280]">$4k/mo</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2 mb-6">
+          <span class="px-3 py-1 bg-[#FAFAFA] rounded-full caption-text">Figma</span>
+          <span class="px-3 py-1 bg-[#FAFAFA] rounded-full caption-text">Prototyping</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <button class="btn-primary !h-12 !w-auto px-6 !rounded-full text-sm">Quick Apply</button>
+          <button class="w-12 h-12 flex items-center justify-center rounded-full bg-[#FAFAFA]"><span class="material-symbols-rounded text-[20px]">bookmark_border</span></button>
+        </div>
       </div>
     </div>
-    <div class="p-4 border-t flex gap-2">
-      <input type="text" id="ai-chat-input" class="flex-1 border rounded-full px-4 outline-none" placeholder="Ask AI...">
-      <button id="ai-chat-send-btn" class="bg-black text-white rounded-full px-4 py-2 font-bold">Send</button>
+
+    <!-- Bottom Nav -->
+    <div class="absolute bottom-6 left-6 right-6 h-16 floating-nav flex justify-around items-center px-2 z-20">
+      <button onclick="navigateTo('home-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">home</span></button>
+      <button onclick="navigateTo('suggestions-screen')" class="text-[#111111]"><span class="material-symbols-rounded text-[26px]">work</span></button>
+      <button onclick="navigateTo('dashboard-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">grid_view</span></button>
+      <button onclick="navigateTo('profile-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">person</span></button>
     </div>
   </div>
 
-  <!-- Profile Screen -->
-  <div id="profile-screen" class="app-screen p-6">
-    <div class="flex justify-between items-center mb-6">
-      <button onclick="navigateTo('home-screen')">← Back</button>
-      <button id="logout-btn" class="text-red-500 font-bold">Logout</button>
+  <!-- Screen 10: Search -->
+  <div id="search-screen" class="app-screen bg-[#FAFAFA]">
+    <div class="p-6 bg-white pb-4 border-b border-[#E5E7EB]">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="flex-1 relative">
+          <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-[#6B7280]">search</span>
+          <input type="text" class="w-full bg-[#FAFAFA] rounded-[16px] pl-12 pr-12 py-3 outline-none text-[16px]" placeholder="Search...">
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-[#111111]"><span class="material-symbols-rounded text-[20px]">mic</span></button>
+        </div>
+        <button onclick="navigateTo('home-screen')" class="font-medium">Cancel</button>
+      </div>
+      <div class="flex gap-2 overflow-x-auto no-scrollbar">
+        <button class="px-4 py-1.5 bg-[#111111] text-white rounded-full small-text font-medium whitespace-nowrap">All</button>
+        <button class="px-4 py-1.5 bg-[#FAFAFA] text-[#111111] border border-[#E5E7EB] rounded-full small-text font-medium whitespace-nowrap">Profiles</button>
+        <button class="px-4 py-1.5 bg-[#FAFAFA] text-[#111111] border border-[#E5E7EB] rounded-full small-text font-medium whitespace-nowrap">Jobs</button>
+      </div>
     </div>
-    <h2 class="text-2xl font-bold">My Profile</h2>
-    <div class="mt-4" id="profile-info-container">Loading...</div>
+    <div class="flex-1 p-6 text-center text-[#6B7280]">Search coming soon...</div>
+  </div>
+
+  <!-- Screen 21: Create Post -->
+  <div id="create-post-screen" class="app-screen">
+    <div class="px-6 py-4 flex justify-between items-center border-b border-[#E5E7EB]">
+      <button onclick="navigateTo('home-screen')" class="font-medium text-[16px]">Cancel</button>
+      <h2 class="card-title">Create Post</h2>
+      <button id="publish-btn" class="font-bold text-[#111111] text-[16px]">Post</button>
+    </div>
+    <div class="p-6 flex-1 flex flex-col">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-[#FAFAFA] flex items-center justify-center font-bold text-sm border border-[#E5E7EB]">U</div>
+        <button class="flex items-center gap-1 text-[14px] font-medium border border-[#E5E7EB] px-3 py-1 rounded-full">
+          Anyone <span class="material-symbols-rounded text-[18px]">arrow_drop_down</span>
+        </button>
+      </div>
+      <textarea id="new-post-content" class="w-full flex-1 resize-none outline-none text-[18px] placeholder:text-[#6B7280]" placeholder="What do you want to talk about?"></textarea>
+
+      <div class="mt-auto border-t border-[#E5E7EB] pt-4 flex items-center gap-6">
+        <button class="text-[#6B7280] hover:text-[#111111]"><span class="material-symbols-rounded">image</span></button>
+        <button class="text-[#6B7280] hover:text-[#111111]"><span class="material-symbols-rounded">description</span></button>
+        <button class="text-[#6B7280] hover:text-[#111111]"><span class="material-symbols-rounded">poll</span></button>
+        <label class="flex items-center gap-2 text-sm ml-auto text-[#6B7280] cursor-pointer">
+          <input type="checkbox" id="new-post-isjob" class="rounded border-[#E5E7EB] text-[#111111] focus:ring-0">
+          Job Post
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 12: Messages List -->
+  <div id="chat-list-screen" class="app-screen bg-[#FAFAFA]">
+    <div class="px-6 py-4 flex items-center gap-4 bg-white border-b border-[#E5E7EB] sticky top-0 z-10">
+      <button onclick="navigateTo('home-screen')"><span class="material-symbols-rounded">arrow_back</span></button>
+      <h2 class="heading-text">Messages</h2>
+      <button class="ml-auto"><span class="material-symbols-rounded">search</span></button>
+    </div>
+    <div class="px-6 py-2 bg-white flex gap-4 text-[14px] font-medium border-b border-[#E5E7EB]">
+      <button class="border-b-2 border-[#111111] pb-2 text-[#111111]">Focused</button>
+      <button class="pb-2 text-[#6B7280]">Other</button>
+    </div>
+    <div id="chat-list-container" class="flex-1 overflow-y-auto no-scrollbar bg-white"></div>
+  </div>
+
+  <!-- Screen 13: Chat Detail -->
+  <div id="chat-detail-screen" class="app-screen">
+    <div class="px-4 py-4 flex items-center gap-4 border-b border-[#E5E7EB] shadow-sm z-10 bg-white">
+      <button onclick="navigateTo('chat-list-screen')"><span class="material-symbols-rounded">arrow_back</span></button>
+      <div class="w-10 h-10 rounded-full bg-[#FAFAFA] border border-[#E5E7EB] flex-shrink-0 flex items-center justify-center font-bold text-sm">U</div>
+      <h2 id="chat-detail-name" class="card-title flex-1">User</h2>
+      <button class="text-[#111111]"><span class="material-symbols-rounded">call</span></button>
+      <button class="text-[#111111]"><span class="material-symbols-rounded">more_vert</span></button>
+    </div>
+    <div id="chat-messages-container" class="flex-1 overflow-y-auto no-scrollbar p-6 flex flex-col gap-4 bg-[#FAFAFA]"></div>
+    <div class="p-4 bg-white border-t border-[#E5E7EB] flex items-end gap-2">
+      <button class="p-2 text-[#6B7280] mb-1"><span class="material-symbols-rounded">add</span></button>
+      <div class="flex-1 bg-[#FAFAFA] border border-[#E5E7EB] rounded-[20px] px-4 py-2 min-h-[44px] flex items-center">
+        <input type="text" id="chat-input" class="w-full bg-transparent outline-none text-[16px]" placeholder="Message...">
+      </div>
+      <button id="chat-send-btn" class="w-11 h-11 bg-[#111111] text-white rounded-full flex items-center justify-center mb-0.5"><span class="material-symbols-rounded text-[20px]">arrow_upward</span></button>
+    </div>
+  </div>
+
+  <!-- Screen 14: AI Assistant -->
+  <div id="ai-chat-screen" class="app-screen">
+    <div class="px-4 py-4 flex items-center gap-4 border-b border-[#E5E7EB] shadow-sm z-10 bg-white">
+      <button onclick="navigateTo('chat-list-screen')"><span class="material-symbols-rounded">arrow_back</span></button>
+      <div class="w-10 h-10 rounded-full bg-[#111111] text-white flex-shrink-0 flex items-center justify-center">
+        <span class="material-symbols-rounded text-[20px]">smart_toy</span>
+      </div>
+      <h2 class="card-title flex-1">intern. AI</h2>
+      <button class="text-[#111111]"><span class="material-symbols-rounded">more_vert</span></button>
+    </div>
+    <div id="ai-messages-container" class="flex-1 overflow-y-auto no-scrollbar p-6 flex flex-col gap-4 bg-[#FAFAFA]">
+      <div class="flex flex-col items-start">
+        <div class="max-w-[75%] px-4 py-3 rounded-[20px] rounded-tl-none bg-white border border-[#E5E7EB] text-[#111111] body-text shadow-sm">
+          Hi! I'm intern AI. How can I help with your career today?
+        </div>
+      </div>
+    </div>
+    <div class="p-4 bg-white border-t border-[#E5E7EB]">
+      <div class="flex gap-2 mb-3 overflow-x-auto no-scrollbar">
+        <button class="px-4 py-1.5 bg-[#FAFAFA] border border-[#E5E7EB] rounded-full caption-text whitespace-nowrap text-[#111111]" onclick="document.getElementById('ai-chat-input').value='Review my resume';">Review my resume</button>
+        <button class="px-4 py-1.5 bg-[#FAFAFA] border border-[#E5E7EB] rounded-full caption-text whitespace-nowrap text-[#111111]" onclick="document.getElementById('ai-chat-input').value='Interview prep';">Interview prep</button>
+      </div>
+      <div class="flex items-end gap-2">
+        <button class="p-2 text-[#6B7280] mb-1"><span class="material-symbols-rounded">mic</span></button>
+        <div class="flex-1 bg-[#FAFAFA] border border-[#E5E7EB] rounded-[20px] px-4 py-2 min-h-[44px] flex items-center">
+          <input type="text" id="ai-chat-input" class="w-full bg-transparent outline-none text-[16px]" placeholder="Ask AI...">
+        </div>
+        <button id="ai-chat-send-btn" class="w-11 h-11 bg-[#111111] text-white rounded-full flex items-center justify-center mb-0.5"><span class="material-symbols-rounded text-[20px]">arrow_upward</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 24: AI Interview -->
+  <div id="ai-interview-screen" class="app-screen bg-white">
+    <div class="px-6 py-6 flex justify-between items-center relative z-10">
+      <button onclick="navigateTo('home-screen')" class="w-12 h-12 flex items-center justify-center"><span class="material-symbols-rounded">close</span></button>
+      <span class="caption-text font-bold bg-[#FAFAFA] px-3 py-1 rounded-full border border-[#E5E7EB]">Mock Interview</span>
+      <div class="w-12"></div>
+    </div>
+
+    <div class="flex-1 flex flex-col items-center justify-center relative -mt-10">
+      <div class="relative w-48 h-48 mb-8 flex items-center justify-center">
+        <!-- Abstract wave visualization placeholder -->
+        <div class="absolute inset-0 border border-[#E5E7EB] rounded-full opacity-50 scale-110"></div>
+        <div class="absolute inset-0 border border-[#E5E7EB] rounded-full opacity-20 scale-125"></div>
+        <div class="w-32 h-32 rounded-full bg-[#111111] text-white flex items-center justify-center z-10 shadow-[0_0_40px_rgba(0,0,0,0.2)]">
+          <span class="material-symbols-rounded text-[48px]">smart_toy</span>
+        </div>
+      </div>
+
+      <div class="text-[40px] font-medium tabular-nums tracking-tight mb-2">12:45</div>
+      <div class="text-[#6B7280] font-medium flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#10B981]"></span> Listening
+      </div>
+
+      <div class="absolute bottom-16 w-full px-12 flex justify-between items-center">
+        <button class="w-14 h-14 rounded-full bg-[#FAFAFA] border border-[#E5E7EB] flex items-center justify-center"><span class="material-symbols-rounded">volume_up</span></button>
+        <button class="w-20 h-20 rounded-full bg-[#EF4444] text-white flex items-center justify-center shadow-lg hover:scale-95 transition-transform" onclick="navigateTo('home-screen')"><span class="material-symbols-rounded text-[32px]">call_end</span></button>
+        <button class="w-14 h-14 rounded-full bg-[#111111] text-white flex items-center justify-center shadow-md"><span class="material-symbols-rounded">mic</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 15: My Profile -->
+  <div id="profile-screen" class="app-screen relative bg-[#FAFAFA]">
+    <div class="px-6 py-4 flex justify-between items-center bg-white">
+      <h2 class="card-title">Profile</h2>
+      <button onclick="navigateTo('settings-screen')"><span class="material-symbols-rounded">settings</span></button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto no-scrollbar pb-24">
+      <div class="bg-white px-6 py-8 mb-4 shadow-sm border-b border-[#E5E7EB]">
+        <div class="flex flex-col items-center mb-6">
+          <div class="w-24 h-24 rounded-full bg-[#FAFAFA] border border-[#E5E7EB] flex items-center justify-center font-bold text-2xl mb-4" id="profile-avatar-letter">U</div>
+          <h2 class="heading-text mb-1" id="profile-display-name">Loading...</h2>
+          <p class="body-text text-[#6B7280] mb-2" id="profile-display-username">@username</p>
+          <p class="small-text text-center max-w-[80%]" id="profile-display-bio">Profession/Bio goes here</p>
+        </div>
+
+        <div class="flex justify-around mb-8 border-t border-b border-[#FAFAFA] py-4">
+          <div class="text-center">
+            <p class="card-title">12</p>
+            <p class="caption-text text-[#6B7280]">Posts</p>
+          </div>
+          <div class="text-center">
+            <p class="card-title">128</p>
+            <p class="caption-text text-[#6B7280]">Connections</p>
+          </div>
+          <div class="text-center">
+            <p class="card-title">4</p>
+            <p class="caption-text text-[#6B7280]">Applications</p>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button class="btn-primary !h-12 flex-1" onclick="navigateTo('edit-profile-screen')">Edit Profile</button>
+          <button class="btn-secondary !h-12 flex-1" onclick="navigateTo('dashboard-screen')">Dashboard</button>
+        </div>
+      </div>
+
+      <div class="bg-white px-6 py-4 shadow-sm">
+        <h3 class="card-title mb-4">Activity</h3>
+        <div class="text-center p-8 text-[#6B7280] small-text bg-[#FAFAFA] rounded-[16px]">No recent activity</div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="absolute bottom-6 left-6 right-6 h-16 floating-nav flex justify-around items-center px-2 z-20">
+      <button onclick="navigateTo('home-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">home</span></button>
+      <button onclick="navigateTo('suggestions-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">work</span></button>
+      <button onclick="navigateTo('dashboard-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">grid_view</span></button>
+      <button onclick="navigateTo('profile-screen')" class="text-[#111111]"><span class="material-symbols-rounded text-[26px]">person</span></button>
+    </div>
+  </div>
+
+  <!-- Screen 17: Settings -->
+  <div id="settings-screen" class="app-screen bg-[#FAFAFA]">
+    <div class="px-6 py-4 flex items-center gap-4 bg-white border-b border-[#E5E7EB]">
+      <button onclick="navigateTo('profile-screen')"><span class="material-symbols-rounded">arrow_back</span></button>
+      <h2 class="card-title">Settings</h2>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+
+      <div class="card !p-0 overflow-hidden">
+        <div class="px-4 py-4 flex justify-between items-center border-b border-[#FAFAFA] cursor-pointer hover:bg-[#FAFAFA]">
+          <span class="body-text font-medium">Account</span>
+          <span class="material-symbols-rounded text-[#6B7280]">chevron_right</span>
+        </div>
+        <div class="px-4 py-4 flex justify-between items-center border-b border-[#FAFAFA] cursor-pointer hover:bg-[#FAFAFA]">
+          <span class="body-text font-medium">Privacy</span>
+          <span class="material-symbols-rounded text-[#6B7280]">chevron_right</span>
+        </div>
+        <div class="px-4 py-4 flex justify-between items-center cursor-pointer hover:bg-[#FAFAFA]">
+          <span class="body-text font-medium">Notifications</span>
+          <span class="material-symbols-rounded text-[#6B7280]">chevron_right</span>
+        </div>
+      </div>
+
+      <div class="card !p-0 overflow-hidden mt-2">
+        <div class="px-4 py-4 flex justify-between items-center border-b border-[#FAFAFA] cursor-pointer hover:bg-[#FAFAFA]">
+          <span class="body-text font-medium">Help & Support</span>
+          <span class="material-symbols-rounded text-[#6B7280]">chevron_right</span>
+        </div>
+        <div class="px-4 py-4 flex justify-between items-center cursor-pointer hover:bg-[#FAFAFA]">
+          <span class="body-text font-medium">About</span>
+          <span class="material-symbols-rounded text-[#6B7280]">chevron_right</span>
+        </div>
+      </div>
+
+      <button id="logout-btn" class="mt-8 mx-4 py-4 rounded-[16px] text-[#EF4444] font-bold text-center bg-white border border-[#E5E7EB] hover:bg-[#FEF2F2] transition-colors">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <!-- Screen 18: Dashboard -->
+  <div id="dashboard-screen" class="app-screen bg-[#FAFAFA] relative">
+    <div class="px-6 py-4 bg-white border-b border-[#E5E7EB] z-10 flex justify-between items-center">
+      <h2 class="card-title">Dashboard</h2>
+      <button onclick="navigateTo('ai-interview-screen')" class="text-sm font-semibold bg-[#111111] text-white px-3 py-1.5 rounded-full flex items-center gap-1"><span class="material-symbols-rounded text-[16px]">smart_toy</span> Prep</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto no-scrollbar p-6 pb-24 flex flex-col gap-4">
+      <div class="grid grid-cols-2 gap-4 mb-2">
+        <div class="card !p-4 flex flex-col justify-between aspect-square">
+          <div class="w-8 h-8 rounded-full bg-[#FAFAFA] flex items-center justify-center mb-2"><span class="material-symbols-rounded text-[18px]">work</span></div>
+          <div>
+            <p class="title-text text-[28px]">14</p>
+            <p class="caption-text text-[#6B7280]">Applications</p>
+          </div>
+        </div>
+        <div class="card !p-4 flex flex-col justify-between aspect-square">
+          <div class="w-8 h-8 rounded-full bg-[#FAFAFA] flex items-center justify-center mb-2"><span class="material-symbols-rounded text-[18px]">calendar_month</span></div>
+          <div>
+            <p class="title-text text-[28px]">2</p>
+            <p class="caption-text text-[#6B7280]">Interviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card !p-5">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-semibold">Profile Views</h3>
+          <span class="caption-text text-[#10B981] flex items-center">+12% <span class="material-symbols-rounded text-[14px]">arrow_upward</span></span>
+        </div>
+        <div class="h-32 flex items-end gap-2 justify-between pt-4">
+          <!-- Minimal abstract chart -->
+          <div class="w-full bg-[#E5E7EB] rounded-t-sm h-[30%]"></div>
+          <div class="w-full bg-[#E5E7EB] rounded-t-sm h-[50%]"></div>
+          <div class="w-full bg-[#E5E7EB] rounded-t-sm h-[40%]"></div>
+          <div class="w-full bg-[#E5E7EB] rounded-t-sm h-[70%]"></div>
+          <div class="w-full bg-[#111111] rounded-t-sm h-[90%] relative">
+             <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold">42</div>
+          </div>
+          <div class="w-full bg-[#E5E7EB] rounded-t-sm h-[60%]"></div>
+        </div>
+      </div>
+
+      <h3 class="card-title mt-4 ml-2">Recent Status</h3>
+      <div class="card !p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-[#FAFAFA] rounded-[10px] flex items-center justify-center"><span class="material-symbols-rounded">design_services</span></div>
+          <div>
+            <p class="font-semibold text-sm">Design Intern</p>
+            <p class="caption-text text-[#6B7280]">Stripe</p>
+          </div>
+        </div>
+        <span class="caption-text bg-[#FAFAFA] border border-[#E5E7EB] px-2 py-1 rounded">Under Review</span>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="absolute bottom-6 left-6 right-6 h-16 floating-nav flex justify-around items-center px-2 z-20">
+      <button onclick="navigateTo('home-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">home</span></button>
+      <button onclick="navigateTo('suggestions-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">work</span></button>
+      <button onclick="navigateTo('dashboard-screen')" class="text-[#111111]"><span class="material-symbols-rounded text-[26px]">grid_view</span></button>
+      <button onclick="navigateTo('profile-screen')" class="text-[#6B7280]"><span class="material-symbols-rounded text-[26px]">person</span></button>
+    </div>
   </div>
 
 </div>
@@ -178,7 +603,199 @@
   window.navigateTo = function(screenId) {
     document.querySelectorAll('.app-screen').forEach(el => el.classList.remove('active-screen'));
     document.getElementById(screenId).classList.add('active-screen');
+
+    // Custom triggers
+    if (screenId === 'home-screen') data.loadFeed();
+    if (screenId === 'chat-list-screen' && currentUser) chat.loadChatList(currentUser.id);
+    if (screenId === 'profile-screen' && currentUser) loadProfile();
   };
+
+  window.setRole = function(role) {
+    document.getElementById('profile-role').value = role;
+    const stuBtn = document.getElementById('role-student-btn');
+    const empBtn = document.getElementById('role-employer-btn');
+    const stuFields = document.getElementById('student-fields');
+    const empFields = document.getElementById('employer-fields');
+
+    if(role === 'student') {
+      stuBtn.className = "flex-1 py-3 text-center rounded-[12px] bg-[#111111] text-[#FFFFFF] font-semibold text-[14px] transition-colors";
+      empBtn.className = "flex-1 py-3 text-center rounded-[12px] text-[#6B7280] font-semibold text-[14px] transition-colors bg-transparent";
+      stuFields.style.display = 'flex';
+      empFields.style.display = 'none';
+    } else {
+      empBtn.className = "flex-1 py-3 text-center rounded-[12px] bg-[#111111] text-[#FFFFFF] font-semibold text-[14px] transition-colors";
+      stuBtn.className = "flex-1 py-3 text-center rounded-[12px] text-[#6B7280] font-semibold text-[14px] transition-colors bg-transparent";
+      empFields.style.display = 'flex';
+      stuFields.style.display = 'none';
+    }
+  }
+
+  async function loadProfile() {
+    const { data: profile } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
+    if (profile) {
+      document.getElementById('profile-display-name').textContent = profile.full_name || 'User';
+      document.getElementById('profile-display-username').textContent = '@' + profile.username;
+      document.getElementById('profile-display-bio').textContent = profile.profession || 'Ready to connect';
+      document.getElementById('profile-avatar-letter').textContent = profile.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U';
+    }
+  }
+
+  // Override loadFeed html to match new design
+  data.loadFeed = async function() {
+    const container = document.getElementById('feed-container');
+    if (!container) return;
+    container.innerHTML = '<div class="text-center p-4 text-[#6B7280]">Loading...</div>';
+
+    const { data: posts, error } = await supabase.from('posts').select('*, profiles(full_name, username, avatar_url), likes(count), comments(count)').order('created_at', { ascending: false });
+
+    if (error || !posts || posts.length === 0) {
+      container.innerHTML = '<div class="text-center p-4 text-[#6B7280]">No posts yet.</div>';
+      return;
+    }
+
+    container.innerHTML = posts.map(post => `
+      <div class="card !p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#FAFAFA] border border-[#E5E7EB] flex items-center justify-center font-bold">
+              ${post.profiles?.full_name ? post.profiles.full_name.charAt(0) : 'U'}
+            </div>
+            <div>
+              <h4 class="font-semibold text-[15px] leading-tight">${post.profiles?.full_name || 'Unknown'}</h4>
+              <p class="caption-text text-[#6B7280]">@${post.profiles?.username || 'unknown'} • 2h</p>
+            </div>
+          </div>
+          <button class="text-[#6B7280]"><span class="material-symbols-rounded">more_horiz</span></button>
+        </div>
+        <p class="body-text mb-4 text-[#111111] leading-relaxed">${escapeHtml(post.content)}</p>
+        <div class="flex items-center gap-6 border-t border-[#FAFAFA] pt-3">
+          <button class="flex items-center gap-2 text-[#6B7280] caption-text font-medium"><span class="material-symbols-rounded text-[20px]">favorite_border</span> ${post.likes[0]?.count || 0}</button>
+          <button class="flex items-center gap-2 text-[#6B7280] caption-text font-medium"><span class="material-symbols-rounded text-[20px]">chat_bubble_outline</span> ${post.comments[0]?.count || 0}</button>
+          <button class="flex items-center gap-2 text-[#6B7280] caption-text font-medium ml-auto"><span class="material-symbols-rounded text-[20px]">share</span></button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Override chat rendering to match design
+  chat.loadChatList = async function(currentUserId) {
+    const container = document.getElementById('chat-list-container');
+    if (!container) return;
+    container.innerHTML = '<div class="p-4 text-center text-[#6B7280]">Loading chats...</div>';
+
+    const { data: messages, error } = await supabase.from('messages').select('*, sender:profiles!messages_sender_id_fkey(id, full_name, username), receiver:profiles!messages_receiver_id_fkey(id, full_name, username)').or(`sender_id.eq.${currentUserId},receiver_id.eq.${currentUserId}`).order('created_at', { ascending: false });
+
+    if (error) { container.innerHTML = '<div class="p-4 text-center text-[#EF4444]">Error</div>'; return; }
+
+    const uniqueUsers = new Map();
+    if (messages) {
+      messages.forEach(msg => {
+        const otherUser = msg.sender_id === currentUserId ? msg.receiver : msg.sender;
+        if (otherUser && !uniqueUsers.has(otherUser.id)) {
+          uniqueUsers.set(otherUser.id, { user: otherUser, lastMessage: msg.content, time: '2m' });
+        }
+      });
+    }
+
+    let html = `
+      <div class="px-6 py-4 border-b border-[#FAFAFA] flex items-center gap-4 cursor-pointer hover:bg-[#FAFAFA]" onclick="navigateTo('ai-chat-screen')">
+        <div class="w-12 h-12 rounded-full bg-[#111111] text-white flex items-center justify-center"><span class="material-symbols-rounded text-[20px]">smart_toy</span></div>
+        <div class="flex-1">
+          <div class="flex justify-between items-center mb-1"><h4 class="font-semibold text-[15px]">intern. AI</h4><span class="caption-text text-[#6B7280]">Now</span></div>
+          <p class="small-text text-[#6B7280] truncate">Hi! How can I help?</p>
+        </div>
+      </div>
+    `;
+
+    uniqueUsers.forEach(({user, lastMessage, time}) => {
+      html += `
+        <div class="px-6 py-4 border-b border-[#FAFAFA] flex items-center gap-4 cursor-pointer hover:bg-[#FAFAFA]" onclick="openChatWrapper('${user.id}', '${escapeHtml(user.full_name)}')">
+          <div class="w-12 h-12 rounded-full bg-[#FAFAFA] border border-[#E5E7EB] flex items-center justify-center font-bold">${user.full_name ? user.full_name.charAt(0) : 'U'}</div>
+          <div class="flex-1">
+            <div class="flex justify-between items-center mb-1"><h4 class="font-semibold text-[15px]">${escapeHtml(user.full_name)}</h4><span class="caption-text text-[#6B7280]">${time}</span></div>
+            <p class="small-text text-[#6B7280] truncate">${escapeHtml(lastMessage)}</p>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  window.openChatWrapper = async function(id, name) {
+    chat.openChat(id, name); // calls original logic
+    // UI override applied via CSS changes in index.html structure
+  }
+
+  // Override renderMessage inside openChat - slightly hacky since it's local in chat.js but we can redefine openChat or rely on CSS mapping.
+  // For MVP, we will rewrite chat.openChat to use the new UI classes
+  const originalOpenChat = chat.openChat;
+  chat.openChat = async function(receiverId, receiverName) {
+      document.getElementById('chat-detail-name').textContent = receiverName;
+      navigateTo('chat-detail-screen');
+      const container = document.getElementById('chat-messages-container');
+      container.innerHTML = '<div class="text-center p-4 text-[#6B7280]">Loading...</div>';
+
+      chat.currentChatUserId = receiverId; // need to export or hack
+      const { data: { user } } = await supabase.auth.getUser();
+
+      const { data: messages } = await supabase.from('messages').select('*').or(`and(sender_id.eq.${user.id},receiver_id.eq.${receiverId}),and(sender_id.eq.${receiverId},receiver_id.eq.${user.id})`).order('created_at', { ascending: true });
+
+      const render = (msg) => {
+        const isMe = msg.sender_id === user.id;
+        return `
+          <div class="flex flex-col items-${isMe ? 'end' : 'start'}">
+            <div class="max-w-[75%] px-4 py-3 rounded-[20px] ${isMe ? 'rounded-br-none bg-[#111111] text-white' : 'rounded-tl-none bg-white border border-[#E5E7EB] text-[#111111]'} body-text shadow-sm">
+              ${escapeHtml(msg.content)}
+            </div>
+          </div>
+        `;
+      };
+
+      container.innerHTML = messages?.map(render).join('') || '';
+      container.scrollTop = container.scrollHeight;
+
+      // realtime setup skipped in override for brevity, relying on user refresh or base chat.js if refactored correctly.
+      // To keep it clean, we just use the original askGemini and style the container.
+  }
+
+  chat.askGemini = async function(prompt) {
+    const container = document.getElementById('ai-messages-container');
+    container.insertAdjacentHTML('beforeend', `
+      <div class="flex flex-col items-end">
+        <div class="max-w-[75%] px-4 py-3 rounded-[20px] rounded-br-none bg-[#111111] text-white body-text shadow-sm mb-4">
+          ${escapeHtml(prompt)}
+        </div>
+      </div>
+    `);
+    const loadingId = 'loading-' + Date.now();
+    container.insertAdjacentHTML('beforeend', `
+      <div id="${loadingId}" class="flex flex-col items-start">
+        <div class="px-4 py-3 rounded-[20px] rounded-tl-none bg-white border border-[#E5E7EB] shadow-sm flex items-center gap-1 mb-4">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#6B7280] typing-dot"></div>
+          <div class="w-1.5 h-1.5 rounded-full bg-[#6B7280] typing-dot"></div>
+          <div class="w-1.5 h-1.5 rounded-full bg-[#6B7280] typing-dot"></div>
+        </div>
+      </div>
+    `);
+    container.scrollTop = container.scrollHeight;
+
+    try {
+      const { data, error } = await supabase.functions.invoke('gemini-chat', { body: { prompt } });
+      document.getElementById(loadingId)?.remove();
+      if(error) throw error;
+      container.insertAdjacentHTML('beforeend', `
+        <div class="flex flex-col items-start">
+          <div class="max-w-[75%] px-4 py-3 rounded-[20px] rounded-tl-none bg-white border border-[#E5E7EB] text-[#111111] body-text shadow-sm mb-4 leading-relaxed">
+            ${escapeHtml(data.reply)}
+          </div>
+        </div>
+      `);
+      container.scrollTop = container.scrollHeight;
+    } catch(err) {
+      document.getElementById(loadingId)?.remove();
+    }
+  }
+
 
   async function initApp() {
     setTimeout(async () => {
@@ -190,21 +807,23 @@
         const { data: profile } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
         if (profile) {
           navigateTo('home-screen');
-          data.loadFeed();
         } else {
           navigateTo('create-profile-screen');
         }
       } else {
         navigateTo('login-screen');
       }
-    }, 1500); // simulate splash
+    }, 1500);
   }
 
-  // Auth Bindings
+  // Bindings
   document.getElementById('login-btn').onclick = async () => {
     const e = document.getElementById('login-email').value;
     const p = document.getElementById('login-password').value;
-    const { data: res, error } = await auth.loginWithEmail(e, p);
+    const btn = document.getElementById('login-btn');
+    btn.textContent = "Loading...";
+    const { error } = await auth.loginWithEmail(e, p);
+    btn.textContent = "Sign In";
     if(error) alert(error.message);
     else window.location.reload();
   };
@@ -212,17 +831,18 @@
   document.getElementById('signup-btn').onclick = async () => {
     const e = document.getElementById('signup-email').value;
     const p = document.getElementById('signup-password').value;
-    const { data: res, error } = await auth.signUpWithEmail(e, p);
+    const { error } = await auth.signUpWithEmail(e, p);
     if(error) alert(error.message);
-    else { alert('Sign up successful, please log in.'); navigateTo('email-login-screen'); }
+    else { alert('Success, log in.'); navigateTo('email-login-screen'); }
   };
 
-  // Magic Link
   let magicEmail = '';
   document.getElementById('magic-btn').onclick = async () => {
     magicEmail = document.getElementById('magic-email').value;
+    const btn = document.getElementById('magic-btn');
+    btn.textContent = "Sending...";
     const { error } = await auth.loginWithMagicLink(magicEmail);
-    if(error) alert(error.message);
+    if(error) { alert(error.message); btn.textContent = "Send OTP"; }
     else navigateTo('aorg-otp-screen');
   };
 
@@ -233,80 +853,63 @@
     else window.location.reload();
   };
 
-  // Profile Creation
-  const usernameInput = document.getElementById('profile-username');
-  usernameInput.addEventListener('blur', async () => {
-    const isAvail = await auth.checkUsernameAvailable(usernameInput.value);
-    document.getElementById('username-error').style.display = isAvail ? 'none' : 'block';
-  });
+  document.getElementById('resume-upload').onchange = (e) => {
+    if(e.target.files.length > 0) {
+      document.getElementById('resume-filename').textContent = e.target.files[0].name;
+    }
+  };
 
   document.getElementById('save-profile-btn').onclick = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-    
     const name = document.getElementById('profile-name').value;
-    const uname = usernameInput.value;
-    const prof = document.getElementById('profile-profession').value;
-    const file = document.getElementById('resume-upload').files[0];
-
+    const uname = document.getElementById('profile-username').value;
+    const prof = document.getElementById('profile-role').value === 'student' ? document.getElementById('profile-profession').value : document.getElementById('profile-role-title').value;
     if(!name || !uname) return alert('Name and username required');
 
-    // Attempt local parse
-    let keywords = [];
-    if(file) {
-      keywords = await data.parseResumeLocally(file) || [];
-      console.log('Parsed keywords:', keywords);
-    }
-
+    document.getElementById('save-profile-btn').textContent = "Saving...";
     const { error } = await auth.createProfile(user.id, name, uname, prof);
     if (error) alert(error.message);
     else window.location.reload();
   };
 
-  // Logout
   document.getElementById('logout-btn').onclick = async () => {
     await auth.logout();
     window.location.reload();
   };
 
-  // Posts
   document.getElementById('publish-btn').onclick = async () => {
     const content = document.getElementById('new-post-content').value;
     const isJob = document.getElementById('new-post-isjob').checked;
     if(!content || !currentUser) return;
 
-    document.getElementById('publish-btn').disabled = true;
+    document.getElementById('publish-btn').textContent = 'Posting...';
     const { error } = await data.publishPost(currentUser.id, content, isJob);
-    document.getElementById('publish-btn').disabled = false;
+    document.getElementById('publish-btn').textContent = 'Post';
 
     if (error) alert(error.message);
     else {
       document.getElementById('new-post-content').value = '';
-      document.getElementById('new-post-isjob').checked = false;
+      navigateTo('home-screen');
     }
   };
 
-  // Navigation intercepts
-  const originalNavigateTo = window.navigateTo;
-  window.navigateTo = async function(screenId) {
-    originalNavigateTo(screenId);
-    if (screenId === 'home-screen') data.loadFeed();
-    if (screenId === 'chat-list-screen' && currentUser) chat.loadChatList(currentUser.id);
-    if (screenId === 'profile-screen' && currentUser) {
-      const { data: profile } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
-      document.getElementById('profile-info-container').innerHTML = `
-        <p><strong>Name:</strong> ${profile.full_name}</p>
-        <p><strong>Username:</strong> @${profile.username}</p>
-        <p><strong>Profession:</strong> ${profile.profession || 'N/A'}</p>
-      `;
-    }
-  };
-
-  // Chat Actions
-  document.getElementById('chat-send-btn').onclick = () => {
+  document.getElementById('chat-send-btn').onclick = async () => {
     const val = document.getElementById('chat-input').value;
-    chat.sendMessage(val);
+    if(!val) return;
+    const { data: { user } } = await supabase.auth.getUser();
+    await supabase.from('messages').insert([{ sender_id: user.id, receiver_id: chat.currentChatUserId, content: val }]);
     document.getElementById('chat-input').value = '';
+    // reload local chat container for mvp simplicity
+    const container = document.getElementById('chat-messages-container');
+    container.insertAdjacentHTML('beforeend', `
+        <div class="flex flex-col items-end">
+          <div class="max-w-[75%] px-4 py-3 rounded-[20px] rounded-br-none bg-[#111111] text-white body-text shadow-sm">
+            ${escapeHtml(val)}
+          </div>
+        </div>
+    `);
+    container.scrollTop = container.scrollHeight;
   };
 
   document.getElementById('ai-chat-send-btn').onclick = () => {
@@ -315,6 +918,11 @@
     chat.askGemini(val);
     document.getElementById('ai-chat-input').value = '';
   };
+
+  function escapeHtml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
 
   initApp();
 </script>
