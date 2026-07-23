@@ -816,108 +816,139 @@
     }, 1500);
   }
 
-  // Bindings
-  document.getElementById('login-btn').onclick = async () => {
-    const e = document.getElementById('login-email').value;
-    const p = document.getElementById('login-password').value;
-    const btn = document.getElementById('login-btn');
-    btn.textContent = "Loading...";
-    const { error } = await auth.loginWithEmail(e, p);
-    btn.textContent = "Sign In";
-    if(error) alert(error.message);
-    else window.location.reload();
-  };
 
-  document.getElementById('signup-btn').onclick = async () => {
-    const e = document.getElementById('signup-email').value;
-    const p = document.getElementById('signup-password').value;
-    const { error } = await auth.signUpWithEmail(e, p);
-    if(error) alert(error.message);
-    else { alert('Success, log in.'); navigateTo('email-login-screen'); }
-  };
+  // Bindings
+  const loginBtn = document.getElementById('login-btn');
+  if (loginBtn) {
+    loginBtn.onclick = async () => {
+      const e = document.getElementById('login-email').value;
+      const p = document.getElementById('login-password').value;
+      const btn = document.getElementById('login-btn');
+      btn.textContent = "Loading...";
+      const { error } = await auth.loginWithEmail(e, p);
+      btn.textContent = "Sign In";
+      if(error) alert(error.message);
+      else window.location.reload();
+    };
+  }
+
+  const signupBtn = document.getElementById('signup-btn');
+  if (signupBtn) {
+    signupBtn.onclick = async () => {
+      const e = document.getElementById('signup-email').value;
+      const p = document.getElementById('signup-password').value;
+      const { error } = await auth.signUpWithEmail(e, p);
+      if(error) alert(error.message);
+      else { alert('Success, log in.'); navigateTo('email-login-screen'); }
+    };
+  }
 
   let magicEmail = '';
-  document.getElementById('magic-btn').onclick = async () => {
-    magicEmail = document.getElementById('magic-email').value;
-    const btn = document.getElementById('magic-btn');
-    btn.textContent = "Sending...";
-    const { error } = await auth.loginWithMagicLink(magicEmail);
-    if(error) { alert(error.message); btn.textContent = "Send OTP"; }
-    else navigateTo('aorg-otp-screen');
-  };
+  const magicBtn = document.getElementById('magic-btn');
+  if (magicBtn) {
+    magicBtn.onclick = async () => {
+      magicEmail = document.getElementById('magic-email').value;
+      const btn = document.getElementById('magic-btn');
+      btn.textContent = "Sending...";
+      const { error } = await auth.loginWithMagicLink(magicEmail);
+      if(error) { alert(error.message); btn.textContent = "Send OTP"; }
+      else navigateTo('aorg-otp-screen');
+    };
+  }
 
-  document.getElementById('verify-otp-btn').onclick = async () => {
-    const token = document.getElementById('otp-input').value;
-    const { error } = await auth.verifyOtp(magicEmail, token);
-    if(error) alert(error.message);
-    else window.location.reload();
-  };
+  const verifyOtpBtn = document.getElementById('verify-otp-btn');
+  if (verifyOtpBtn) {
+    verifyOtpBtn.onclick = async () => {
+      const token = document.getElementById('otp-input').value;
+      const { error } = await auth.verifyOtp(magicEmail, token);
+      if(error) alert(error.message);
+      else window.location.reload();
+    };
+  }
 
-  document.getElementById('resume-upload').onchange = (e) => {
-    if(e.target.files.length > 0) {
-      document.getElementById('resume-filename').textContent = e.target.files[0].name;
-    }
-  };
+  const resumeUpload = document.getElementById('resume-upload');
+  if (resumeUpload) {
+    resumeUpload.onchange = (e) => {
+      if(e.target.files.length > 0) {
+        document.getElementById('resume-filename').textContent = e.target.files[0].name;
+      }
+    };
+  }
 
-  document.getElementById('save-profile-btn').onclick = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-    const name = document.getElementById('profile-name').value;
-    const uname = document.getElementById('profile-username').value;
-    const prof = document.getElementById('profile-role').value === 'student' ? document.getElementById('profile-profession').value : document.getElementById('profile-role-title').value;
-    if(!name || !uname) return alert('Name and username required');
+  const saveProfileBtn = document.getElementById('save-profile-btn');
+  if (saveProfileBtn) {
+    saveProfileBtn.onclick = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const name = document.getElementById('profile-name').value;
+      const uname = document.getElementById('profile-username').value;
+      const prof = document.getElementById('profile-role').value === 'student' ? document.getElementById('profile-profession').value : document.getElementById('profile-role-title').value;
+      if(!name || !uname) return alert('Name and username required');
 
-    document.getElementById('save-profile-btn').textContent = "Saving...";
-    const { error } = await auth.createProfile(user.id, name, uname, prof);
-    if (error) alert(error.message);
-    else window.location.reload();
-  };
+      document.getElementById('save-profile-btn').textContent = "Saving...";
+      const { error } = await auth.createProfile(user.id, name, uname, prof);
+      if (error) alert(error.message);
+      else window.location.reload();
+    };
+  }
 
-  document.getElementById('logout-btn').onclick = async () => {
-    await auth.logout();
-    window.location.reload();
-  };
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.onclick = async () => {
+      await auth.logout();
+      window.location.reload();
+    };
+  }
 
-  document.getElementById('publish-btn').onclick = async () => {
-    const content = document.getElementById('new-post-content').value;
-    const isJob = document.getElementById('new-post-isjob').checked;
-    if(!content || !currentUser) return;
+  const publishBtn = document.getElementById('publish-btn');
+  if (publishBtn) {
+    publishBtn.onclick = async () => {
+      const content = document.getElementById('new-post-content').value;
+      const isJob = document.getElementById('new-post-isjob').checked;
+      if(!content || !currentUser) return;
 
-    document.getElementById('publish-btn').textContent = 'Posting...';
-    const { error } = await data.publishPost(currentUser.id, content, isJob);
-    document.getElementById('publish-btn').textContent = 'Post';
+      document.getElementById('publish-btn').textContent = 'Posting...';
+      const { error } = await data.publishPost(currentUser.id, content, isJob);
+      document.getElementById('publish-btn').textContent = 'Post';
 
-    if (error) alert(error.message);
-    else {
-      document.getElementById('new-post-content').value = '';
-      navigateTo('home-screen');
-    }
-  };
+      if (error) alert(error.message);
+      else {
+        document.getElementById('new-post-content').value = '';
+        navigateTo('home-screen');
+      }
+    };
+  }
 
-  document.getElementById('chat-send-btn').onclick = async () => {
-    const val = document.getElementById('chat-input').value;
-    if(!val) return;
-    const { data: { user } } = await supabase.auth.getUser();
-    await supabase.from('messages').insert([{ sender_id: user.id, receiver_id: chat.currentChatUserId, content: val }]);
-    document.getElementById('chat-input').value = '';
-    // reload local chat container for mvp simplicity
-    const container = document.getElementById('chat-messages-container');
-    container.insertAdjacentHTML('beforeend', `
-        <div class="flex flex-col items-end">
-          <div class="max-w-[75%] px-4 py-3 rounded-[20px] rounded-br-none bg-[#111111] text-white body-text shadow-sm">
-            ${escapeHtml(val)}
+  const chatSendBtn = document.getElementById('chat-send-btn');
+  if (chatSendBtn) {
+    chatSendBtn.onclick = async () => {
+      const val = document.getElementById('chat-input').value;
+      if(!val) return;
+      const { data: { user } } = await supabase.auth.getUser();
+      await supabase.from('messages').insert([{ sender_id: user.id, receiver_id: chat.currentChatUserId, content: val }]);
+      document.getElementById('chat-input').value = '';
+
+      const container = document.getElementById('chat-messages-container');
+      container.insertAdjacentHTML('beforeend', `
+          <div class="flex flex-col items-end">
+            <div class="max-w-[75%] px-4 py-3 rounded-[20px] rounded-br-none bg-[#111111] text-white body-text shadow-sm">
+              ${escapeHtml(val)}
+            </div>
           </div>
-        </div>
-    `);
-    container.scrollTop = container.scrollHeight;
-  };
+      `);
+      container.scrollTop = container.scrollHeight;
+    };
+  }
 
-  document.getElementById('ai-chat-send-btn').onclick = () => {
-    const val = document.getElementById('ai-chat-input').value;
-    if(!val) return;
-    chat.askGemini(val);
-    document.getElementById('ai-chat-input').value = '';
-  };
+  const aiChatSendBtn = document.getElementById('ai-chat-send-btn');
+  if (aiChatSendBtn) {
+    aiChatSendBtn.onclick = () => {
+      const val = document.getElementById('ai-chat-input').value;
+      if(!val) return;
+      chat.askGemini(val);
+      document.getElementById('ai-chat-input').value = '';
+    };
+  }
 
   function escapeHtml(unsafe) {
     if (!unsafe) return '';
