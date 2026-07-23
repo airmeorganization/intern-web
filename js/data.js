@@ -6,39 +6,38 @@ export async function loadFeed() {
   const container = document.getElementById('feed-container');
   if (!container) return;
 
-  container.innerHTML = '<div class="text-center p-4">Loading posts...</div>';
+  container.innerHTML = '<div class="text-center p-4 text-[#6B7280]">Loading...</div>';
 
   const { data: posts, error } = await supabase
     .from('posts')
     .select('*, profiles(full_name, username, avatar_url), likes(count), comments(count)')
     .order('created_at', { ascending: false });
 
-  if (error) {
-    container.innerHTML = '<div class="text-center p-4 text-red-500">Error loading feed.</div>';
-    console.error('Feed error:', error);
-    return;
-  }
-
-  if (!posts || posts.length === 0) {
-    container.innerHTML = '<div class="text-center p-4">No posts yet.</div>';
+  if (error || !posts || posts.length === 0) {
+    container.innerHTML = '<div class="text-center p-4 text-[#6B7280]">No posts yet.</div>';
+    if (error) console.error('Feed error:', error);
     return;
   }
 
   container.innerHTML = posts.map(post => `
-    <div class="bg-white p-4 mb-4 border-b">
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold">
-          ${post.profiles?.full_name ? post.profiles.full_name.charAt(0) : 'U'}
+    <div class="card !p-5">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#FAFAFA] border border-[#E5E7EB] flex items-center justify-center font-bold">
+            ${post.profiles?.full_name ? post.profiles.full_name.charAt(0) : 'U'}
+          </div>
+          <div>
+            <h4 class="font-semibold text-[15px] leading-tight">${post.profiles?.full_name || 'Unknown'}</h4>
+            <p class="caption-text text-[#6B7280]">@${post.profiles?.username || 'unknown'} • 2h</p>
+          </div>
         </div>
-        <div>
-          <h4 class="font-bold">${post.profiles?.full_name || 'Unknown'}</h4>
-          <p class="text-xs text-gray-500">@${post.profiles?.username || 'unknown'}</p>
-        </div>
+        <button class="text-[#6B7280]"><span class="material-symbols-rounded">more_horiz</span></button>
       </div>
-      <p class="mb-3">${escapeHtml(post.content)}</p>
-      <div class="flex gap-4 text-gray-500 text-sm">
-        <span>❤️ ${post.likes[0]?.count || 0}</span>
-        <span>💬 ${post.comments[0]?.count || 0}</span>
+      <p class="body-text mb-4 text-[#111111] leading-relaxed">${escapeHtml(post.content)}</p>
+      <div class="flex items-center gap-6 border-t border-[#FAFAFA] pt-3">
+        <button class="flex items-center gap-2 text-[#6B7280] caption-text font-medium"><span class="material-symbols-rounded text-[20px]">favorite_border</span> ${post.likes[0]?.count || 0}</button>
+        <button class="flex items-center gap-2 text-[#6B7280] caption-text font-medium"><span class="material-symbols-rounded text-[20px]">chat_bubble_outline</span> ${post.comments[0]?.count || 0}</button>
+        <button class="flex items-center gap-2 text-[#6B7280] caption-text font-medium ml-auto"><span class="material-symbols-rounded text-[20px]">share</span></button>
       </div>
     </div>
   `).join('');
@@ -89,7 +88,7 @@ export async function parseResumeLocally(file) {
   }
 }
 
-function escapeHtml(unsafe) {
+export function escapeHtml(unsafe) {
     if (!unsafe) return '';
     return unsafe
          .replace(/&/g, "&amp;")
