@@ -1,7 +1,9 @@
-import { supabase, APP_CONFIG } from './config.js';
+import { supabase, APP_CONFIG } from "./config.js";
 
 export async function checkSessionExpiry() {
-  const { data: { session } } = await supabase.auth.getSession();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
   if (session) {
     const lastSignInAt = new Date(session.user.last_sign_in_at).getTime();
     const now = new Date().getTime();
@@ -25,15 +27,15 @@ export async function signUpWithEmail(email, password) {
 }
 
 export async function loginWithGoogle() {
-  return await supabase.auth.signInWithOAuth({ provider: 'google' });
+  return await supabase.auth.signInWithOAuth({ provider: "google" });
 }
 
 export async function loginWithMagicLink(email) {
   return await supabase.auth.signInWithOtp({
     email,
     options: {
-      shouldCreateUser: true
-    }
+      shouldCreateUser: true,
+    },
   });
 }
 
@@ -41,7 +43,7 @@ export async function verifyOtp(email, token) {
   return await supabase.auth.verifyOtp({
     email,
     token,
-    type: 'magiclink'
+    type: "magiclink",
   });
 }
 
@@ -49,23 +51,15 @@ export async function checkUsernameAvailable(username) {
   if (!username) return false;
 
   const { data, error } = await supabase
-    .from('profiles')
-    .select('id')
-    .eq('username', username)
+    .from("profiles")
+    .select("id")
+    .eq("username", username)
     .single();
 
-  if (error && error.code === 'PGRST116') {
+  if (error && error.code === "PGRST116") {
     return true; // No rows returned, username is available
   }
   return false; // Username is taken
-}
-
-export async function createProfile(userId, fullName, username, profession) {
-  const { data, error } = await supabase
-    .from('profiles')
-    .insert([{ id: userId, full_name: fullName, username, profession }])
-    .select();
-  return { data, error };
 }
 
 export async function logout() {
